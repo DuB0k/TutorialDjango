@@ -50,39 +50,24 @@ Con esto consigo cargar los ficheros css del admin site.
 
 Configracion de wsgi.py
 -----------------------
-Modifico el fichero creado por defecto con lo siguiente:
+Modifico el fichero creado por defecto con lo siguiente [link](http://www.tangowithdjango.com/book17/chapters/deploy.html)
 
-`##start custom settings
-##http://www.tangowithdjango.com/book17/chapters/deploy.html
-# TURN ON THE VIRTUAL ENVIRONMENT FOR YOUR APPLICATION
-activate_this = '/home/dub0k/.virtualenvs/django17/bin/activate_this.py'
-
+`activate_this = '/home/dub0k/.virtualenvs/django17/bin/activate_this.py'
 with open(activate_this) as f:
     code = compile(f.read(), activate_this, 'exec')
     exec(code, dict(__file__=activate_this))
-
 import os
 import sys
-
-# ADD YOUR PROJECT TO THE PYTHONPATH FOR THE PYTHON INSTANCE
+ADD YOUR PROJECT TO THE PYTHONPATH FOR THE PYTHON INSTANCE
 path = '/home/dub0k/tutorial/'
 if path not in sys.path:
     sys.path.append(path)
-
-# IMPORTANTLY GO TO THE PROJECT DIR
 os.chdir(path)
-
-# TELL DJANGO WHERE YOUR SETTINGS MODULE IS LOCATED
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tutorial.settings')
-
-# IMPORT THE DJANGO SETUP - NEW TO 1.7
 import django
 django.setup()
-
-# IMPORT THE DJANGO WSGI HANDLER TO TAKE CARE OF REQUESTS
 import django.core.handlers.wsgi
-application = django.core.handlers.wsgi.WSGIHandler()
-##end custom settings`
+application = django.core.handlers.wsgi.WSGIHandler()`
 
 
 Creacion de la base de datos SQLlite:
