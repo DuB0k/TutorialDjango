@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from datetime import datetime
 from polls.models import Question
 from django.template import RequestContext, loader
@@ -22,7 +22,15 @@ def index(request):
     return render(request, 'polls/index.html', context)
 
 def detail(request, question_id):
-    return HttpResponse("You're looking at question %s." % question_id)
+    #try:
+    #    question = Question.objects.get(pk=question_id)
+    #except Question.DoesNotExist:
+    #    raise Http404("Question does not exist")
+    ##Better using a djago shortcut!
+    question = get_object_or_404(Question, pk=question_id)
+
+    return render(request, 'polls/detail.html',{'question': question}) 
+   #return HttpResponse("You're looking at question %s." % question_id)
 
 def results(reuqest, question_id):
     response = "you're looking at the results of question %s."
