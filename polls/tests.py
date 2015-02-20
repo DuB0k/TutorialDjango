@@ -2,6 +2,7 @@ import datetime
 
 from django.test import TestCase
 from django.utils import timezone
+from django.core.urlresolvers import reverse
 
 from polls.models import Question
 
@@ -33,3 +34,12 @@ class QuestionMethodTests(TestCase):
         time = timezone.now() - datetime.timedelta(hours=1)
         recent_question = Question(pub_date=time)
         self.assertEqual(recent_question.was_published_recently(), True)
+
+    def create_question(question_text, days):
+        """
+        Creates a question with the given `question_text` published the given
+        number of `days` offset to now (negative for questions published
+        in the past, positive for questions that have yet to be published).
+        """
+        time = timezone.now()
+
